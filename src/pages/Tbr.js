@@ -4,6 +4,7 @@ import Bookshelf from "../images/library-book-bookshelf-read.jpg"
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import axios from 'axios';
+import { useAsyncError } from "react-router";
 
 function Tbr()
 {
@@ -12,6 +13,11 @@ function Tbr()
     const [selectedBooks, setSelectedBooks] = useState([]);
     const [username, setUsername] = useState(localStorage.getItem("uname") || "");
     const [existingBooks, setExistingBooks] = useState([]);
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleCheckboxChange = () =>{
+      setIsChecked(!isChecked);
+    }
 
     useEffect(()=>{
         if(username){
@@ -77,7 +83,7 @@ function Tbr()
         axios.post("http://localhost:5000/tbr/"+username+"/add-books", tbrData)
             .then((response)=>{
                 console.log("TBR list saved successfully:", response.data);
-                //setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
+                setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
                 setSelectedBooks([]); // Clear the selectedBooks state
                 window.location.reload();
             })
@@ -129,7 +135,8 @@ function Tbr()
         {/* Display existing books */}
         {existingBooks.map((book, index) => (
           <div key={index} className="flex m-2">
-            <input  type="checkbox" className="h-4 w-4 my-auto"  />
+            <input onChange={handleCheckboxChange} type="checkbox" className="h-4 w-4 my-auto"  />
+            {console.log("IsChecked:",isChecked)}
             <span>
               <img src={book.coverImage} alt="Book Cover" className="w-10 h-14 mx-4" />
             </span>
