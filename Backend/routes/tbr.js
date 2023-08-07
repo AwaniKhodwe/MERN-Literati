@@ -44,4 +44,45 @@ router.route('/:username').get((req,res)=>{
     .catch((err) => res.status(500).json("Error fetching TBR data: " + err));
 })
 
+router.route('/:username/remove-books').post((req, res) => {
+  const username = req.params.username;
+  const bookTitlesToRemove = req.body.bookTitles;
+  console.log(bookTitlesToRemove);
+  if (!bookTitlesToRemove || bookTitlesToRemove.length === 0) {
+    return res.status(400).json("No book titles provided.");
+  }
+
+  TbrModel.findOne({ username: username })
+  .then((tbr) => {
+    if (!tbr) {
+      return res.status(404).json("No TBR exists for the current user");
+    }
+
+    // Fetch the document again to ensure you have the latest version
+    return TbrModel.findById(tbr._id);
+  })
+  .then((fetchedTbr) => {
+    if (!fetchedTbr) {
+      return res.status(404).json("No TBR found for the current user");
+    }
+
+    // Filter out books with specified titles
+    fetchedTbr.books = fetchedTbr.books.filter(book => !bookTitlesToRemove.includes(book.title));
+
+    // Save the updated TBR entry
+    return fetchedTbr.save();
+  })
+  .then(() => {
+    res.json('Books removed from TBR by titles successfully!');
+  })
+  .catch((error) => {
+    console.error("Error removing books from TBR by titles:", error);
+    res.status(500).json("Internal Server Error: " + error.message);
+  });
+
+});
+
+
+
+
 module.exports = router;

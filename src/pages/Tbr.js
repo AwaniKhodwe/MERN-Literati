@@ -13,11 +13,18 @@ function Tbr()
     const [selectedBooks, setSelectedBooks] = useState([]);
     const [username, setUsername] = useState(localStorage.getItem("uname") || "");
     const [existingBooks, setExistingBooks] = useState([]);
-    const [isChecked, setIsChecked] = useState(false);
+    const [checkedBooks, setCheckedBooks] = useState([]);
 
-    const handleCheckboxChange = () =>{
-      setIsChecked(!isChecked);
-    }
+    const handleCheckboxChange = (index) => {
+      setCheckedBooks((prevCheckedBooks) => {
+        if (prevCheckedBooks.includes(index)) {
+          return prevCheckedBooks.filter((item) => item !== index);
+        } else {
+          return [...prevCheckedBooks, index];
+        }
+      });
+    };
+    
 
     useEffect(()=>{
         if(username){
@@ -65,33 +72,57 @@ function Tbr()
         setItem("");
       };
 
-      const handleSave=()=>{
-
+      const handleSave = () => {
         const booksData = selectedBooks.map((book) => {
-            return {
-                title: book.volumeInfo.title,
-                author: book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "N/A",
-                coverImage: book.volumeInfo.imageLinks?.thumbnail,
-            };
+          return {
+            title: book.volumeInfo.title,
+            author: book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "N/A",
+            coverImage: book.volumeInfo.imageLinks?.thumbnail,
+          };
+        });
+      
+        const tbrData = {
+          books: booksData,
+        };
+      
+        const selectedReadings = checkedBooks.map((index) => existingBooks[index]);
+      
+        const readingsData = {
+          books: selectedReadings,
+        };
+      
+        const removeBooksData = checkedBooks.map((index) => existingBooks[index].title); // Extract titles
+      
+        axios.post("http://localhost:5000/tbr/" + username + "/add-books", tbrData)
+          .then((response) => {
+            console.log("TBR list saved successfully:", response.data);
+            setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
+            setSelectedBooks([]); // Clear the selectedBooks state
+          })
+          .catch((error) => {
+            console.log("Error saving TBR:", error);
+          });
+      
+        axios.post("http://localhost:5000/readings/" + username + "/add-books", readingsData)
+          .then((response) => {
+            console.log("CheckedBooks added to Readings successfully:", response.data);
+          })
+          .catch((error) => {
+            console.log("Error adding books to Readings: ", error);
+          });
+      
+        axios.post("http://localhost:5000/tbr/" + username + "/remove-books", { bookTitles: removeBooksData }) // Send as an object with the correct property name
+          .then((response) => {
+            console.log("Books removed from TBR successfully", response.data);
+            setCheckedBooks([]);
+          })
+          .catch((error) => {
+            console.log("Error removing books from TBR: ", error);
           });
 
-          const tbrData = {
-            books: booksData,
-          };
-
-
-        axios.post("http://localhost:5000/tbr/"+username+"/add-books", tbrData)
-            .then((response)=>{
-                console.log("TBR list saved successfully:", response.data);
-                setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
-                setSelectedBooks([]); // Clear the selectedBooks state
-                window.location.reload();
-            })
-            .catch((error)=>{
-                console.log("Error saving TBR:", error);
-            })
-      }
-
+          window.location.reload();
+      };
+      
 
     return(
         <>
@@ -135,8 +166,8 @@ function Tbr()
         {/* Display existing books */}
         {existingBooks.map((book, index) => (
           <div key={index} className="flex m-2">
-            <input onChange={handleCheckboxChange} type="checkbox" className="h-4 w-4 my-auto"  />
-            {console.log("IsChecked:",isChecked)}
+            <input onChange={() => handleCheckboxChange(index)} type="checkbox" checked={checkedBooks.includes(index)} className="h-4 w-4 my-auto"  />
+            {console.log(checkedBooks)}
             <span>
               <img src={book.coverImage} alt="Book Cover" className="w-10 h-14 mx-4" />
             </span>

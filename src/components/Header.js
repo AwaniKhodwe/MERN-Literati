@@ -16,11 +16,15 @@ function Header() {
     navigate('/search');
   }
 
+  const navigateToLanding = () =>{
+    navigate('/landingPage')
+  } 
+
   return (
 
     <div className='flex bg-pebblegray h-12 font-montserrat'>
         
-      <div className='ml-4 my-auto mx-auto' style={{marginRight: "1000px"}}>
+      <div onClick={navigateToLanding} className='ml-4 my-auto mx-auto' style={{marginRight: "1000px"}}>
         <p className='text-4xl text-rose-50 font-cursive'>Literati</p>
       </div>
     
