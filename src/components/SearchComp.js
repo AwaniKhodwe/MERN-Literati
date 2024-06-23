@@ -1,6 +1,7 @@
 import React from "react";
 import { Element } from "react-scroll";
 
+
 import Libshelf from "../images/libraryshelf.png";
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ function SearchComp() {
   return (
     <Element name="fadeInDiv" className="relative h-96">
         {/* This is the div you want to animate */}
+
 
     <div className="w-full h-96" style={{ backgroundImage: `url(${Libshelf})`}}>
       <div className="w-1/3 text-center mx-auto pt-20">

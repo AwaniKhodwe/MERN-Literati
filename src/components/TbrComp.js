@@ -16,6 +16,7 @@ function TbrComp()
         <Element name="fadeInDiv" className="relative h-96">
         {/* This is the div you want to animate */}
 
+
             <div className="flex w-full h-96 bg-deeprust " >
                 <div className="w-1/3 pt-24 ml-20 text-center">
                     <h1 className="font-montserrat font-bold text-lavendargray text-5xl text-center">Create your TBR</h1>
@@ -26,6 +27,7 @@ function TbrComp()
                     <img className="pl-20 w-full h-full " src={Bookshelf2}></img>
                 </div>
             </div>
+
 
         </Element>
         
