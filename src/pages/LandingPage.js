@@ -7,9 +7,6 @@ import TBR from "../components/TbrComp"
 import Readings from "../components/myReadings"
 import Search from "../components/SearchComp";
 
-
-
-
 function LandingPage()
 {
     return(

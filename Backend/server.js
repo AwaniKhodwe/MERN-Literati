@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: ['https://mern-literati.vercel.app'],
+    origin: ['https://mern-literati.vercel.app', 'http://localhost:3000'],
     methods: ['POST', 'GET'],
     credentials: true
     

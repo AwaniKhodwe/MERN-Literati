@@ -47,10 +47,11 @@ function Tbr()
 
         const searchTerm = searchItem;
         const url = `http://localhost:5000/search?s=${searchTerm}`;
-    
+        console.log("hello")
         axios
           .get(url)
           .then((response) => {
+            console.log(response.data);
             setSearchResults(response.data);
           })
           .catch((error) => {
@@ -134,8 +135,8 @@ function Tbr()
                 <div className="flex flex-wrap mt-4 h-auto p-4 pt-2 bg-pebblegray mx-auto border-2 rounded-2xl border-lavendargray/50" style={{width:"80%"}}>
                     <div className="flex text-lavendargray mt-2 mx-auto">
                         <div className="mx-4  font-bold">
-                            <AddRoundedIcon onClick={handleSearch} style={{ fontSize: 36 }}/>
-                            <span>Add</span>
+                            <button className="hover:bg-rose-100/25"><AddRoundedIcon onClick={handleSearch} style={{ fontSize: 36 }}/></button>
+                            <span className="">Add</span>
                             {console.log(searchItem)}
                         </div>
                         
@@ -143,7 +144,7 @@ function Tbr()
                             <input value={searchItem} onChange={itemChange} type="text" className="p-2 pl-4 h-10 rounded-3xl bg-lavendargray text-pebblegray font-bold" style={{width: "900px"}}></input>
                         </div>
                         <div className="mx-4  font-bold">
-                            <AutoStoriesIcon onClick={handleSave} style={{ fontSize: 36 }}/>
+                            <button className="hover:bg-rose-100/25"><AutoStoriesIcon onClick={handleSave} style={{ fontSize: 36 }}/></button>
                             <span className="ml-2">Save TBR</span>
                         </div>
                     </div>
