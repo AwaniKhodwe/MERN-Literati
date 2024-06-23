@@ -1,8 +1,7 @@
 import React from "react";
 // import TbrImg from "../images/library-book-bookshelf-read.jpg"
 import { Element } from "react-scroll";
-import Fade from "react-reveal/Fade";
-import Slide from "react-reveal/Slide";
+
 import Bookshelf2 from "../images/bookshelf2.jpg"
 import { useNavigate } from 'react-router-dom';
 
@@ -16,8 +15,7 @@ function TbrComp()
     return (
         <Element name="fadeInDiv" className="relative h-96">
         {/* This is the div you want to animate */}
-        <Fade>
-        <Slide left cascade duration={2500}>
+
             <div className="flex w-full h-96 bg-deeprust " >
                 <div className="w-1/3 pt-24 ml-20 text-center">
                     <h1 className="font-montserrat font-bold text-lavendargray text-5xl text-center">Create your TBR</h1>
@@ -28,8 +26,7 @@ function TbrComp()
                     <img className="pl-20 w-full h-full " src={Bookshelf2}></img>
                 </div>
             </div>
-        </Slide>
-        </Fade>
+
         </Element>
         
         
