@@ -1,5 +1,3 @@
-// mongodb+srv://awanikhodwe:vlPRKNWhgPn4SqxF@cluster0.pyjeoaq.mongodb.net/?retryWrites=true&w=majority
-// mongodb+srv://awanikhodwe:<password>@cluster0.pyjeoaq.mongodb.net/
 
 const express = require('express');
 const cors = require('cors');
@@ -12,7 +10,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: ['https://mern-literati.vercel.app'],
+    methods: ['POST', 'GET'],
+    credentials: true
+    
+    
 }));
 app.use(express.json());
 
