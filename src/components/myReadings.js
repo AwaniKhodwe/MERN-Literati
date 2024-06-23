@@ -1,8 +1,6 @@
 import React from "react";
 // import TbrImg from "../images/library-book-bookshelf-read.jpg"
 import { Element } from "react-scroll";
-import Fade from "react-reveal/Fade";
-import Slide from "react-reveal/Slide";
 import MyReadings from "../images/myreadings.jpg"
 import { useNavigate } from 'react-router-dom';
 
@@ -17,8 +15,7 @@ function MyReads()
     return (
         <Element name="fadeInDiv" className="relative h-96">
         {/* This is the div you want to animate */}
-        <Fade>
-        <Slide right cascade duration={2500}>
+        
             <div className="flex w-full h-96 bg-deeprust " >
                 <div className="w-2/3 ">
                     <img className="pr-20 w-full h-full " src={MyReadings}></img>
@@ -30,8 +27,7 @@ function MyReads()
                 </div>
                 
             </div>
-        </Slide>
-        </Fade>
+
         </Element>
         
         
