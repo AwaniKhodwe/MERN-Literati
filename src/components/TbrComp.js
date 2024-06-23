@@ -6,7 +6,7 @@ import Slide from "react-reveal/Slide";
 import Bookshelf2 from "../images/bookshelf2.jpg"
 import { useNavigate } from 'react-router-dom';
 
-function tbrComp()
+function TbrComp()
 {
     const navigate = useNavigate();
 
@@ -36,4 +36,4 @@ function tbrComp()
     )
 }
 
-export default tbrComp;
+export default TbrComp;

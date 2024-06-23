@@ -6,7 +6,7 @@ import Slide from "react-reveal/Slide";
 import MyReadings from "../images/myreadings.jpg"
 import { useNavigate } from 'react-router-dom';
 
-function myReadings()
+function MyReads()
 {
     const navigate = useNavigate();
 
@@ -38,4 +38,4 @@ function myReadings()
     )
 }
 
-export default myReadings;
+export default MyReads;

@@ -27,10 +27,12 @@ connection.once('open', ()=>{
 const usersRouter = require("./routes/users");
 const tbrRouter = require("./routes/tbr");
 const readingsRouter = require("./routes/readings")
+const searchRouter = require("./routes/search");    
 
 app.use("/users", usersRouter);
 app.use("/tbr", tbrRouter);
 app.use("/readings", readingsRouter);
+app.use("/search", searchRouter);   
 
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}`);

@@ -22,12 +22,12 @@ function Search() {
 //   };
 
   const handleSearch = () => {
-    const apiKey = 'AIzaSyA1gjFZSeZUs6XAjzJt3TP3GRRFaHsgzSs';
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiKey}`;
+
+    const url = `http://localhost:5000/search?s=${searchTerm}`;
     axios
           .get(url)
           .then((response) => {
-            setSearchResults(response.data.items);
+            setSearchResults(response.data);
           })
           .catch((error) => {
             console.error("Error fetching data from Google Books API:", error);
