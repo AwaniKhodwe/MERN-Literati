@@ -27,7 +27,8 @@ function LoginBox() {
         localStorage.setItem("uname", uname);
         
         try {
-            const response = await axios.post(`${API_URL}/users/login`, {
+            const response = await axios.post("https://mern-literati-server.vercel.app
+/users/login", {
                 uname: uname,
                 pword: pword,
             });
@@ -49,7 +50,7 @@ function LoginBox() {
         event.preventDefault();
         localStorage.setItem("uname", uname);
         try {
-            const response = await axios.post(`${API_URL}/users/signup`, {
+            const response = await axios.post("https://mern-literati-server.vercel.app/users/signup", {
                 uname: uname,
                 pword: pword
             });
