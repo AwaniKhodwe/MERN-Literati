@@ -22,6 +22,9 @@ function LoginBox() {
         setPword(event.target.value);
     }
     console.log("API URL", API_URL)
+
+    axios.defaults.withCredentials = true;
+    
     const onLogin = async (event) => {
         event.preventDefault();
         localStorage.setItem("uname", uname);
