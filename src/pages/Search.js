@@ -23,7 +23,7 @@ function Search() {
 
   const handleSearch = () => {
 
-    const url = "https://mern-literati-server.vercel.app/search?s=${searchTerm}";
+    const url = `https://mern-literati-server.vercel.app/search?s=${searchTerm}`;
     axios
           .get(url)
           .then((response) => {
