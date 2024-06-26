@@ -93,7 +93,7 @@ function Tbr()
       
         const removeBooksData = checkedBooks.map((index) => existingBooks[index].title); // Extract titles
       
-        axios.post("https://mern-literati-server.vercel.app/tbr/" + username + "/add-books", tbrData)
+        axios.post(`https://mern-literati-server.vercel.app/tbr/${username}/add-books`, tbrData)
           .then((response) => {
             console.log("TBR list saved successfully:", response.data);
             setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
