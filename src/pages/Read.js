@@ -19,7 +19,7 @@ function Readings() {
 
   useEffect(() => {
     if (username) {
-      axios.get('http://localhost:5000/readings/' + username)
+      axios.get('https://mern-literati-server.vercel.app/readings/' + username)
         .then((response) => {
           setExistingBooks(response.data.books);
         })
@@ -69,7 +69,7 @@ function Readings() {
       books: booksData,
     };
 
-    axios.post("http://localhost:5000/readings/" + username + "/add-books", readingsData)
+    axios.post("https://mern-literati-server.vercel.app/readings/" + username + "/add-books", readingsData)
       .then((response) => {
         console.log("Readings list saved successfully:", response.data);
         setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
@@ -105,7 +105,7 @@ function Readings() {
     setSubmitButtonClicked(true);
 
     axios
-      .post(`http://localhost:5000/readings/` + username + `/` + book._id + `/add-comment`, commentData)
+      .post(`https://mern-literati-server.vercel.app/readings/` + username + `/` + book._id + `/add-comment`, commentData)
       .then((response) => {
         console.log("Comment and rating added successfully:", response.data);
       })
