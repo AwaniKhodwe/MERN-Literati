@@ -72,56 +72,39 @@ function Tbr()
         setItem("");
       };
 
-      const handleSave = () => {
-        const booksData = selectedBooks.map((book) => {
-          return {
-            title: book.volumeInfo.title,
-            author: book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "N/A",
-            coverImage: book.volumeInfo.imageLinks?.thumbnail,
-          };
-        });
-      
-        const tbrData = {
-          books: booksData,
-        };
-      
-        const selectedReadings = checkedBooks.map((index) => existingBooks[index]);
-      
-        const readingsData = {
-          books: selectedReadings,
-        };
-      
-        const removeBooksData = checkedBooks.map((index) => existingBooks[index].title); // Extract titles
-      
-        axios.post(`https://mern-literati-server.vercel.app/tbr/${username}/add-books`, tbrData)
-          .then((response) => {
-            console.log("TBR list saved successfully:", response.data);
-            setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
-            setSelectedBooks([]); // Clear the selectedBooks state
-          })
-          .catch((error) => {
-            console.log("Error saving TBR:", error);
-          });
-      
-        axios.post(`https://mern-literati-server.vercel.app/readings/${username}/add-books`, readingsData)
-          .then((response) => {
-            console.log("CheckedBooks added to Readings successfully:", response.data);
-          })
-          .catch((error) => {
-            console.log("Error adding books to Readings: ", error);
-          });
-      
-        axios.post(`https://mern-literati-server.vercel.app/tbr/${username}/remove-books`, { bookTitles: removeBooksData }) // Send as an object with the correct property name
-          .then((response) => {
-            console.log("Books removed from TBR successfully", response.data);
-            setCheckedBooks([]);
-          })
-          .catch((error) => {
-            console.log("Error removing books from TBR: ", error);
-          });
+      const handleSave = async () => {
+  try {
+    // Add to TBR
+    const booksData = selectedBooks.map((book) => ({
+      title: book.volumeInfo.title,
+      author: book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "N/A",
+      coverImage: book.volumeInfo.imageLinks?.thumbnail,
+    }));
 
-          window.location.reload();
-      };
+    const tbrData = { books: booksData };
+    await axios.post(`https://mern-literati-server.vercel.app/tbr/${username}/add-books`, tbrData);
+    
+    // Move to Readings
+    const selectedReadings = checkedBooks.map((index) => existingBooks[index]);
+    const readingsData = { books: selectedReadings };
+    await axios.post(`https://mern-literati-server.vercel.app/readings/${username}/add-books`, readingsData);
+    
+    // Remove from TBR
+    const removeBooksData = checkedBooks.map((index) => existingBooks[index].title);
+    await axios.post(`https://mern-literati-server.vercel.app/tbr/${username}/remove-books`, { bookTitles: removeBooksData });
+
+    // Update local state
+    setExistingBooks((prevBooks) => prevBooks.filter((_, index) => !checkedBooks.includes(index)));
+    setSelectedBooks([]);
+    setCheckedBooks([]);
+
+    // Optionally reload the page
+    window.location.reload();
+  } catch (error) {
+    console.error("Error in handleSave:", error);
+    // Handle the error appropriately (e.g., show an error message to the user)
+  }
+};
       
 
     return(
