@@ -30,8 +30,7 @@ function LoginBox() {
         localStorage.setItem("uname", uname);
         
         try {
-            const response = await axios.post("https://mern-literati-server.vercel.app
-/users/login", {
+            const response = await axios.post("https://mern-literati-server.vercel.app/users/login", {
                 uname: uname,
                 pword: pword,
             });
