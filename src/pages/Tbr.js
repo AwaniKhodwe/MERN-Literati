@@ -28,7 +28,7 @@ function Tbr()
 
     useEffect(()=>{
         if(username){
-            axios.get('http://localhost:5000/tbr/'+username)
+            axios.get('https://mern-literati-server.vercel.app/tbr/'+username)
                 .then((response)=>{
                     setExistingBooks(response.data.books);
                 })
@@ -46,7 +46,7 @@ function Tbr()
     const handleSearch = () => {
 
         const searchTerm = searchItem;
-        const url = `http://localhost:5000/search?s=${searchTerm}`;
+        const url = `https://mern-literati-server.vercel.app/search?s=${searchTerm}`;
         console.log("hello")
         axios
           .get(url)
@@ -93,7 +93,7 @@ function Tbr()
       
         const removeBooksData = checkedBooks.map((index) => existingBooks[index].title); // Extract titles
       
-        axios.post("http://localhost:5000/tbr/" + username + "/add-books", tbrData)
+        axios.post("https://mern-literati-server.vercel.app/tbr/" + username + "/add-books", tbrData)
           .then((response) => {
             console.log("TBR list saved successfully:", response.data);
             setExistingBooks((prevExistingBooks) => [...prevExistingBooks, ...selectedBooks]);
@@ -103,7 +103,7 @@ function Tbr()
             console.log("Error saving TBR:", error);
           });
       
-        axios.post("http://localhost:5000/readings/" + username + "/add-books", readingsData)
+        axios.post("https://mern-literati-server.vercel.app/readings/" + username + "/add-books", readingsData)
           .then((response) => {
             console.log("CheckedBooks added to Readings successfully:", response.data);
           })
@@ -111,7 +111,7 @@ function Tbr()
             console.log("Error adding books to Readings: ", error);
           });
       
-        axios.post("http://localhost:5000/tbr/" + username + "/remove-books", { bookTitles: removeBooksData }) // Send as an object with the correct property name
+        axios.post("https://mern-literati-server.vercel.app/tbr/" + username + "/remove-books", { bookTitles: removeBooksData }) // Send as an object with the correct property name
           .then((response) => {
             console.log("Books removed from TBR successfully", response.data);
             setCheckedBooks([]);
