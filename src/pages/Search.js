@@ -23,7 +23,7 @@ function Search() {
 
   const handleSearch = () => {
 
-    const url = `http://localhost:5000/search?s=${searchTerm}`;
+    const url = "https://mern-literati-server.vercel.app/search?s=${searchTerm}";
     axios
           .get(url)
           .then((response) => {
@@ -53,7 +53,7 @@ function Search() {
       ]
     };
   
-    axios.post(`http://localhost:5000/tbr/`+username+`/add-books`, bookData)
+    axios.post(`https://mern-literati-server.vercel.app/tbr/`+username+`/add-books`, bookData)
       .then((response) => {
         console.log("Book added to TBR successfully!");
         setSuccessMessages(prevSuccessMessages => ({
