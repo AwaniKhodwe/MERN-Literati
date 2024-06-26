@@ -103,7 +103,7 @@ function Tbr()
             console.log("Error saving TBR:", error);
           });
       
-        axios.post("https://mern-literati-server.vercel.app/readings/" + username + "/add-books", readingsData)
+        axios.post(`https://mern-literati-server.vercel.app/readings/${username}/add-books`, readingsData)
           .then((response) => {
             console.log("CheckedBooks added to Readings successfully:", response.data);
           })
@@ -111,7 +111,7 @@ function Tbr()
             console.log("Error adding books to Readings: ", error);
           });
       
-        axios.post("https://mern-literati-server.vercel.app/tbr/" + username + "/remove-books", { bookTitles: removeBooksData }) // Send as an object with the correct property name
+        axios.post(`https://mern-literati-server.vercel.app/tbr/${username}/remove-books`, { bookTitles: removeBooksData }) // Send as an object with the correct property name
           .then((response) => {
             console.log("Books removed from TBR successfully", response.data);
             setCheckedBooks([]);
