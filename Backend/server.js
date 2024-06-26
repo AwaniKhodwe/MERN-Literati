@@ -26,6 +26,10 @@ connection.once('open', ()=>{
     console.log("MongoDB database connection established successfully.");
 })
 
+app.get("/", (req, res) => {
+    res.json("Literati's Server");
+})
+
 const usersRouter = require("./routes/users");
 const tbrRouter = require("./routes/tbr");
 const readingsRouter = require("./routes/readings")
